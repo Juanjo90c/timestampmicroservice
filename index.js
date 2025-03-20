@@ -12,14 +12,13 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-// your first API endpoint... 
-app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
-});
-
 app.get("/api/:date?", function(req, res){
-  let date = new Date(req.params.date)
-  console.log(date)
+  let urlDate = req.params.date == undefined ?
+    Date.now():
+    req.params.date
+  let date =  isNaN(Number(urlDate))? 
+    new Date(urlDate) :
+    new Date(Number(urlDate))
   if(date == "Invalid Date")
   {
     res.json(
@@ -28,11 +27,11 @@ app.get("/api/:date?", function(req, res){
   }
   else 
   {
-  res.json({
-    "unix": date.valueOf(),
-    "utc": date.toUTCString()
-  })
-}
+    res.json({
+      "unix": date.valueOf(),
+      "utc": date.toUTCString()
+    })
+  }
 })
 
 
