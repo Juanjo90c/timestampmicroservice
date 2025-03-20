@@ -30,8 +30,7 @@ app.get("/api/:date?", function(req, res){
   {
   res.json({
     "unix": date.valueOf(),
-    "date": date.toUTCString()
-
+    "utc": date.toUTCString()
   })
 }
 })
